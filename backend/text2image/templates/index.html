@@ -1,0 +1,73 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <title>AI Text to Image Generator</title>
+    
+</head>
+<body>
+    <div class="container">
+        <h1>🎨 AI Image Generator</h1>
+        <p class="subtitle">Powered by Pollinations AI - Free & No Setup Required!</p>
+        
+        <div class="info-box">
+            <strong>✨ Features:</strong><br>
+            • No installation or API key needed<br>
+            • Generates images in seconds<br>
+            • Completely free to use<br>
+            • Works from anywhere with internet
+        </div>
+        
+        <form method="POST" id="imageForm">
+            {% csrf_token %}
+            <div class="input-group">
+                <input 
+                    type="text" 
+                    name="prompt" 
+                    id="promptInput"
+                    placeholder="Describe the image you want to create..." 
+                    required
+                    value="{{ request.POST.prompt }}"
+                >
+                <button type="submit" id="generateBtn">Generate</button>
+            </div>
+        </form>
+
+        <div class="examples">
+            <strong>💡 Try these examples:</strong>
+            <div class="example-prompts">
+                <span class="example-prompt" onclick="setPrompt('a beautiful sunset over mountains')">🏔️ Mountain Sunset</span>
+                <span class="example-prompt" onclick="setPrompt('a cute robot playing guitar')">🤖 Robot Guitarist</span>
+                <span class="example-prompt" onclick="setPrompt('cyberpunk city at night, neon lights')">🌃 Cyberpunk City</span>
+                <span class="example-prompt" onclick="setPrompt('watercolor painting of a cat')">🎨 Watercolor Cat</span>
+                <span class="example-prompt" onclick="setPrompt('fantasy dragon in the clouds')">🐉 Fantasy Dragon</span>
+            </div>
+        </div>
+        
+        <div class="loading" id="loading">
+            <div class="spinner"></div>
+            ⏳ Generating your image...
+        </div>
+
+        {% if image_url %}
+            <div class="image-container">
+                <h3>✨ Generated Image:</h3>
+                <img src="{{ image_url }}" alt="Generated image">
+            </div>
+        {% endif %}
+
+        {% if error %}
+            <div class="error">
+                <strong>⚠️ Error:</strong><br>
+                {{ error }}
+            </div>
+        {% endif %}
+    </div>
+    
+    <script src="{% static 'js/main.js' %}" ></script>
+</body>
+</html>
