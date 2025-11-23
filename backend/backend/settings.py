@@ -123,7 +123,7 @@ USE_TZ = True
 STATIC_URL = 'static/'
 
 STATICFILES_DIRS = [
-    BASE_DIR / "text2image" / "static",   # your real static folder
+    BASE_DIR / "text2image" / "static"
 ]
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
